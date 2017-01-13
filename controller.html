@@ -14,11 +14,23 @@
   integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
   crossorigin="anonymous"></script>
 	<script>
-	$('a:not([target])').click(function(){
-self.location = $(this).attr('href');
-return false;
+		$(document).ready(function(){
+resizeDiv();
 });
-		
+
+window.onresize = function(event) {
+resizeDiv();
+}
+
+function resizeDiv() {
+vpw = $(window).width();
+vph = $(window).height();
+$(‘#button’).css({‘height’: vph + ‘px’});
+}
+	$('a:not([target])').click(function(){
+	self.location = $(this).attr('href');
+	return false;
+});	
 	</script>
 </head>
 
@@ -52,7 +64,7 @@ return false;
         <main class="mdl-layout__content">
             <div class="page-content">
                 <!-- Content goes here -->
-                <button style="height: 100%!important; width: 100%;" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
+                <button id="button" style="width: 100%;" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
 	  Toggle Hive Door
 	</button>
             </div>
