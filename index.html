@@ -1,0 +1,132 @@
+<!doctype html>
+<html>
+
+<head>
+    <title>HiveMind OS Controller</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
+    <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+    <meta name="viewport" content="width=device-width">
+    <style>
+        main {
+            flex-grow: inherit!important;
+            height: 100%!important;
+        }
+        
+        .page-content {
+            height: 100%;
+        }
+        
+        #map {
+            height: 100%;
+            width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Always shows a header, even in smaller screens. -->
+    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+        <header class="mdl-layout__header">
+            <div class="mdl-layout__header-row">
+                <!-- Title -->
+                <span class="mdl-layout-title">Hive Mind OS Controller</span>
+                <!-- Add spacer, to align navigation to the right -->
+                <div class="mdl-layout-spacer"></div>
+                <!-- Navigation. We hide it in small screens. -->
+                <nav class="mdl-navigation mdl-layout--large-screen-only">
+                    <a class="mdl-navigation__link" href="index.html">Home</a>
+                    <a class="mdl-navigation__link" href="controller.html">Controller</a>
+                    <a class="mdl-navigation__link" href="data.html">Data</a>
+                    <a target="_blank" class="mdl-navigation__link" href="https://sites.google.com/site/beeboxos/">Our Website</a>
+                </nav>
+            </div>
+        </header>
+        <div class="mdl-layout__drawer">
+            <span class="mdl-layout-title">Hive Mind OS</span>
+            <nav class="mdl-navigation">
+                <a class="mdl-navigation__link" href="index.html">Home</a>
+                <a class="mdl-navigation__link" href="controller.html">Controller</a>
+                <a class="mdl-navigation__link" href="data.html">Data</a>
+                <a target="_blank" class="mdl-navigation__link" href="https://sites.google.com/site/beeboxos/">Our Website</a>
+            </nav>
+        </div>
+        <main class="mdl-layout__content">
+            <div class="page-content">
+                <!-- Content goes here -->
+                <div id="map"></div>
+                <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
+	  Toggle Hive Door
+	</button>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        var mapReady;
+        var documentReady;
+
+        // Document Ready
+        if (document.addEventListener)
+            document.addEventListener("DOMContentLoaded", function() {
+                documentReady = true;
+                if (mapReady) showMap();
+            }, false);
+
+        // Map Ready
+        function initMap() {
+            mapReady = true;
+            if (documentReady) showMap();
+        }
+
+        // Show Map
+        function showMap() {
+
+            window.setTimeout(function() {
+
+                // Specify the coordinates of the hives
+                var hives = [{
+                    lat: 34.008068,
+                    lng: -81.164511
+                }, {
+                    lat: 34.020576,
+                    lng: -81.183488
+                }, {
+                    lat: 34.020502,
+                    lng: -81.183218
+                }, {
+                    lat: 34.020511,
+                    lng: -81.183528
+                }, {
+                    lat: 34.020413,
+                    lng: -81.183336
+                }, {
+                    lat: 34.079841,
+                    lng: -81.202510
+                }, {
+                    lat: 34.010085,
+                    lng: -81.082074
+                }];
+
+                // Create and center the map
+                var map = new google.maps.Map(document.getElementById('map'), {
+                    zoom: 12,
+                    center: hives[0]
+                });
+
+                // Place markers on the map denoting the location of the hives
+                for (var i = 0; i < hives.length; i++) {
+                    var hive = hives[i];
+                    var marker = new google.maps.Marker({
+                        position: hive,
+                        map: map
+                    });
+                }
+
+            }, 3000);
+        }
+    </script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDCWe3UR95tARuOyJLOqWH4IA1H7_Jxd3I&callback=initMap"></script>
+</body>
+
+</html>
